@@ -1,0 +1,461 @@
+:root {
+    --background-color: #3f4058;
+    --container-color: #b2a897;
+    --header-text-color: #3f4058;
+    --paragraph-text-color: #3f4058;
+    --border-color: #776e65;
+    --button-color: #776e65;
+    --button-hover-color: #57504a;
+    --options-color: #776e65;
+    --button-text-color: #f4efe7;
+    --editor-background-color: #eee8ce;
+    --editor-gutter-color: #776e65;
+    --editor-active-line-color: #e2ddc5;
+    --editor-gutter-cell-color: #776e65;
+    --line-number-color: #b8ae9e;
+    --active-line-number-color: #f4efe7;
+    --selection-color: rgba(63, 64, 88, 0.30);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    width: 80%;
+    height: 80%;
+    max-width: 80vmin;
+    background-color: var(--container-color); /* Легкий кофейный фон */
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+    width: 85%;
+    height: 95%;
+
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h2 {
+    color: var(--header-text-color); /* Темный кофейный цвет для заголовка */
+    margin-bottom: 20px;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+h3 {
+    color: var(--header-text-color); /* Темный кофейный цвет для заголовка */
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+/* .file-upload-block {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.file-upload {
+    width: 100%;
+    margin: 10px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+input[type="file"] {
+    padding: 8px;
+    margin-right: 10px;
+    /* background-color: #f8f1e1;
+    border: 1px solid #c5a67d; */
+    border-radius: 8px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+
+.result {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.verification-label {
+    font-size: 18px;
+    color: var(--paragraph-text-color);
+    font-weight: bold;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#verificationCode {
+    width: 55%;
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--editor-background-color);
+    color: var(--paragraph-text-color);
+    outline: none;
+}
+
+.copy-btn {
+    padding: 8px 16px;
+    background-color: var(--button-color);
+    border: none;
+    color: var(--button-text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.copy-btn:hover {
+    background-color: var(--button-hover-color);
+}
+
+.copy-btn:disabled {
+    animation: none;
+    transition: none;
+    pointer-events: none; /* Блокировать все события клика */
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.verification-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: var(--paragraph-text-color);
+}
+
+.verification-code span:first-child {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+#resultNumber {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--paragraph-text-color); /* Цвет для результата */
+}
+#copyBtn {
+    font-size: 16px;
+}
+
+#fileInput {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin-right: 10px;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.custom-file-upload:hover {
+    background-color: var(--button-hover-color);
+}
+
+#fileName {
+    font-size: 16px;
+    color: var(--paragraph-text-color);
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#errorBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 40%;
+}
+
+#errorList {
+    outline: none;
+    
+    font-family: Consolas, 'Courier New', monospace;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 80%;
+    max-height: 300px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--editor-background-color);
+    color: var(--paragraph-text-color);
+    resize: none;      /* разрешаем изменение только по вертикали */
+    white-space: pre-wrap; /* сохраняем переносы строк */
+    overflow: auto;        /* добавляем скроллинг при переполнении */
+}
+
+/* Кастомизация скроллбара для WebKit-браузеров (Chrome, Edge, Safari) */
+#errorList::-webkit-scrollbar {
+    width: 12px;
+}
+
+#errorList::-webkit-scrollbar-track {
+    background: var(--editor-background-color);
+    border-radius: 8px;
+}
+
+#errorList::-webkit-scrollbar-thumb {
+    background-color: var(--button-color);
+    border-radius: 8px;
+    border: 2px solid var(--editor-background-color);
+    cursor: auto;
+}
+
+#errorList::-webkit-scrollbar-thumb:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* .editor-wrapper {
+    max-height: 500px;
+    width: 80%;
+    min-height: 30px;
+    overflow: auto;
+    border: 2px solid #6f4f1e;
+    border-radius: 8px;
+    background-color: #e7dac7;    
+    margin: 10px 0px
+} */
+
+#editor {
+    background-color: var(--editor-background-color);
+
+    width: 100%;
+    height: 60%;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    margin: 10px 0px;
+
+    box-sizing: border-box;
+}
+
+.buttons-block {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.check-button-block {
+    margin: 10px 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+#checkButton {
+    outline: none;
+
+    padding: 8px 16px;
+    background-color: var(--button-color);
+    border: none;
+    color: var(--button-text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#checkButton:hover {
+    background-color: var(--button-hover-color);
+}
+
+.ace_gutter {
+    padding-top: 8px;
+}
+.ace_content {
+    padding: 8px 0px 0px 4px;
+}
+
+.ace_scroller {
+    right: 12px !important;
+    bottom: 12px !important;
+}
+
+.ace_active-line {
+    background-color: var(--editor-active-line-color) !important;
+}
+
+.ace_gutter-cell {
+    background-color: var(--editor-gutter-cell-color) !important;
+    color: var(--line-number-color) !important;
+}
+
+.ace_gutter-active-line {
+    color: var(--active-line-number-color) !important;
+}
+
+.ace_selection {
+    background-color: var(--selection-color) !important;
+}
+
+.ace-solarized-light .ace_gutter {
+    background: var(--editor-gutter-color);
+}
+
+
+/* Вертикальный скроллбар Ace */
+.ace_editor .ace_scrollbar-v {
+    width: 12px !important; /* Ширина как у #errorList */
+}
+
+/* Горизонтальный скроллбар Ace */
+.ace_editor .ace_scrollbar-h {
+    height: 12px !important;
+    margin-left: 1px !important;
+}
+
+/* Ползунок Ace */
+.ace_editor .ace_scrollbar-thumb {
+    background-color: var(--button-color) !important;
+    border-radius: 8px !important;
+    border: 2px solid var(--editor-background-color) !important;
+}
+
+/* Трек скроллбара Ace */
+.ace_editor .ace_scrollbar {
+    background: var(--editor-background-color) !important;
+    border-radius: 8px !important;
+}
+
+/* Ховер-эффект для ползунка */
+.ace_editor .ace_scrollbar-thumb:hover {
+    background-color: var(--button-hover-color) !important;
+}
+
+/* Для WebKit-браузеров */
+.ace_editor ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.ace_editor ::-webkit-scrollbar-thumb {
+    background: var(--button-color);
+    border-radius: 8px;
+    border: 2px solid var(--editor-background-color);
+}
+
+.ace_editor ::-webkit-scrollbar-thumb:hover {
+    background: var(--button-hover-color);
+}
+
+.ace_editor ::-webkit-scrollbar-track {
+    background: var(--editor-background-color);
+    /* border-radius: 8px; */
+}
+
+/* Для Firefox */
+/* .ace_editor {
+    scrollbar-color: var(--button-color) var(--editor-background-color);
+    scrollbar-width: thin;
+} */
+
+
+/* Стиль для блока выбора задания */
+.program-selector {
+    margin: 10px 0px;
+    text-align: center;
+}
+
+.program-selector select {
+    outline: none;
+    user-select: none;
+
+    padding: 8px 16px;
+    background-color: var(--button-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+
+    appearance: none;          /* убираем системную стрелку */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 8px 10px;
+    padding-right: 30px;    
+}
+
+.program-selector select:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Не трогаем option — они будут системными */
+.program-selector option {
+    border-radius: 8px;
+
+    background-color: var(--options-color);
+    color: var(--button-text-color);
+}
+

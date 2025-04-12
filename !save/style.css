@@ -1,0 +1,320 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #f4f1e1; /* Цвет фона в кофейных тонах */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 80%;
+    height: 80%;
+    max-width: 600px; /* Ограничиваем максимальную ширину */
+    background-color: #c6b5a4; /* Легкий кофейный фон */
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h2 {
+    color: #4f4a42; /* Темный кофейный цвет для заголовка */
+    margin-bottom: 20px;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+h3 {
+    color: #3f3a32; /* Темный кофейный цвет для заголовка */
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+/* .file-upload-block {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.file-upload {
+    width: 80%;
+    margin: 10px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="file"] {
+    padding: 8px;
+    margin-right: 10px;
+    background-color: #f8f1e1;
+    border: 1px solid #c5a67d;
+    border-radius: 8px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #6f4f1e; /* Кофейный цвет кнопки */
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #4b3621; /* Темный кофейный цвет при наведении */
+}
+
+.result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.verification-label {
+    font-size: 18px;
+    color: #4a443b;
+    font-weight: bold;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#verificationCode {
+    width: 120px;
+    padding: 8px;
+    font-size: 16px;
+    text-align: center;
+    border: 2px solid #6f4f1e;
+    border-radius: 8px;
+    background-color: #e7dac7;
+    color: #3e2a47;
+    outline: none;
+}
+
+.copy-btn {
+    padding: 8px 16px;
+    background-color: #6f4f1e;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.copy-btn:hover {
+    background-color: #4b3621;
+    transform: scale(1.05);
+}
+
+.copy-btn:disabled {
+    animation: none;
+    transition: none;
+    pointer-events: none; /* Блокировать все события клика */
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.verification-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #3e2a47; /* Цвет текста */
+}
+
+.verification-code span:first-child {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+#resultNumber {
+    font-size: 24px;
+    font-weight: bold;
+    color: #6f4f1e; /* Цвет для результата */
+}
+#copyBtn {
+    font-size: 16px;
+}
+
+#fileInput {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #6f4f1e;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin-right: 10px;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.custom-file-upload:hover {
+    background-color: #4b3621;
+}
+
+#fileName {
+    font-size: 16px;
+    color: #4a443b;
+
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#errorBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 80%;
+    height: 40%;
+}
+
+#errorList {
+    outline: none;
+    
+    font-family: Consolas, 'Courier New', monospace;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    height: 80%;
+    max-height: 300px;
+    border: 2px solid #6f4f1e;
+    border-radius: 8px;
+    background-color: #e7dac7;
+    color: #3e2a47;
+    resize: none;      /* разрешаем изменение только по вертикали */
+    white-space: pre-wrap; /* сохраняем переносы строк */
+    overflow: auto;        /* добавляем скроллинг при переполнении */
+}
+
+/* Кастомизация скроллбара для WebKit-браузеров (Chrome, Edge, Safari) */
+#errorList::-webkit-scrollbar {
+    width: 10px;
+}
+
+#errorList::-webkit-scrollbar-track {
+    background: #e7dac7;
+    border-radius: 8px;
+}
+
+#errorList::-webkit-scrollbar-thumb {
+    background-color: #6f4f1e;
+    border-radius: 8px;
+    border: 2px solid #e7dac7;
+}
+
+/* .editor-wrapper {
+    max-height: 500px;
+    width: 80%;
+    min-height: 30px;
+    overflow: auto;
+    border: 2px solid #6f4f1e;
+    border-radius: 8px;
+    background-color: #e7dac7;    
+    margin: 10px 0px
+} */
+
+#editor {
+    padding: 10px;
+    background-color: #e7dac7;
+
+    width: 80%;
+    height: 40%;
+    border: 2px solid #6f4f1e;
+    border-radius: 8px;
+    margin: 10px 0px;
+
+    box-sizing: border-box;
+}
+
+.ace-solarized-light .ace_gutter {
+    background: #c4b397;
+}
+
+/* Стиль для блока выбора задания */
+.program-selector {
+    
+    margin: 10px 0px;
+    text-align: center;
+}
+
+.program-selector select {
+    outline: none;
+
+    padding: 8px 16px;
+    background-color: #6f4f1e; /* кофейный цвет */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+
+    appearance: none;          /* убираем системную стрелку */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 8px 10px;
+    padding-right: 30px;    
+}
+
+.program-selector select:hover {
+    background-color: #4b3621;
+}
+
+/* Не трогаем option — они будут системными */
+.program-selector option {
+    background-color: #d6c5ac;
+    color: black;
+}
+
+.program-selector option:hover {
+    background-color: transparent;
+    color: black;
+}
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution Check System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.39.1/ace.js" integrity="sha512-tGc7XQXpQYGpFGmdQCEaYhGdJ8B64vyI9c8zdEO4vjYaWRCKYnLy+HkudtawJS3ttk/Pd7xrkRjK8ijcMMyauw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="updateLineNumbers()">
+    <div class="container">
+        <div class="content">
+            <h2>Solution Check System</h2>
+
+            <div class="program-selector">
+                <select id="programSelect">
+                    <option value="" hidden selected>Choose Program</option>
+                    <option value="test">test</option>
+                    <option value="H00FST">H00FST</option>
+                    <option value="H01POW23">H01POW23</option>
+                    <option value="H02FSQRT">H02FSQRT</option>
+                    <option value="H03LIEQ">H03LIEQ</option>
+                    <option value="H04SORT3">H04SORT3</option>
+                    <option value="H05GERON">H05GERON</option>
+                    <option value="H06SUM">H06SUM</option>
+                    <option value="H07FTRL">H07FTRL</option>
+                </select>
+            </div>
+
+            <div id="editor"></div>
+
+            <div class="buttons-block">
+                <div class="file-upload">
+                    <label for="fileInput" class="custom-file-upload">Choose File</label>
+                    <span id="fileName" class="file-name">No file chosen</span>
+                    <input type="file" id="fileInput" accept=".c">
+                </div>
+
+                <div class="check-button-block">
+                    <button id="checkButton" onclick="uploadCode()" style="display: none;">Check</button>
+                </div>
+            </div>
+
+            <div class="result" id="resultBlock" style="display: none;">
+                <label for="verificationCode" class="verification-label">Answer:</label>
+                <input type="text" id="verificationCode" readonly>
+                <button class="copy-btn" onclick="copyResult()">Copy</button>
+            </div>
+
+            <div class="error" id="errorBlock" style="display: none;">
+                <h3>Errors detected:</h3>
+                <textarea id="errorList" readonly></textarea>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
