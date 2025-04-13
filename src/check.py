@@ -26,37 +26,33 @@ def compile(src_filename, out_filename):
 # ARGUMENTS:
 #   - executable file name:
 #       exe_filename;
-#   - test file name:
-#       test_filename;
+#   - test input string:
+#       test_input;
 # RETURNS:
 #   (string) a string that program outputs.
 #
-def run(exe_filename, test_filename):
-    with open(test_filename, "r", encoding="utf-8") as fein:
-        result = subprocess.run([exe_filename], stdin=fein, capture_output=True, text=True)
-    return result.stdout
+def run(exe_filename, test_input):
+    result = subprocess.run([exe_filename], input=test_input, capture_output=True, text=True)
+    return result.stdout.strip()
 # End of 'run' function
 
 # Compare program output with test answers funciton.
 # ARGUMENTS:
 #   - program ouput string:
 #       program_ouput;
-#   - expexted ouput file path:
+#   - expexted ouptut string:
 #       expected_path;
 # RETURNS:
 #   (bool, string) success of comparing and differences with original output (if they are).
 #
-def compare(program_ouput, expected_path):
-    with open(expected_path, "r", encoding="utf-8") as f:
-        expected_ouput = f.read()
-    
-    program_ouput = program_ouput.strip()
-    expected_ouput = expected_ouput.strip()
+def compare(program_output, expected_output):
+    program_output = program_output.strip()
+    expected_output = expected_output.strip()
 
-    if program_ouput == expected_ouput:
+    if program_output == expected_output:
         return True, ""
     
-    return False, f"  Correct ouput: {expected_ouput}\n  Your output: {program_ouput}\n"
+    return False, f"  Correct ouput: {expected_output}\n  Your output: {program_output}\n"
 # End of 'compare' function
 
 # Run program on test data function.
@@ -73,19 +69,22 @@ def run_tests(exe_filename, tests_dir):
     all_passed = True
     report = ""
 
-    while True:
-        input_path = os.path.join(tests_dir, f"input{i}.txt")
-        expected_path = os.path.join(tests_dir, f"expected{i}.txt")
+    print(f"Debug: Test file path: {os.path.join(tests_dir, "test.txt")}")
+    with open(os.path.join(tests_dir, "test.txt"), "r") as f:
+        content = f.read().split("####### TEST CASE #######")[1:]
 
-        if not (os.path.exists(input_path) and os.path.exists(expected_path)):
-            break
+    for test_case in content:
+        parts = test_case.strip().split("---")
+        test_input = parts[0].strip()
+        expexted_ouput = parts[1].strip()
+        # print(f"Debug: Test #{i}: {test_input}\n{expexted_ouput}")
         
-        program_ouput = run(exe_filename, input_path)
-        passed, diff = compare(program_ouput, expected_path)
+        program_ouput = run(exe_filename, test_input)
+        passed, diff = compare(program_ouput, expexted_ouput)
 
-        if passed:
-            report += f"Test {i}: PASS\n"
-        else:
+        # if passed:
+        #     report += f"Test {i}: PASS\n"
+        if not passed:
             report += f"Test {i}: FAIL\n{diff}\n"
             all_passed = False
         
