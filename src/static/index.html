@@ -35,21 +35,40 @@
                     <span id="fileName" class="file-name">No file chosen</span>
                     <input type="file" id="fileInput" accept=".c">
                 </div>
-
+                <div class="hotkey-hint-block">
+                    <div class="hotkey-hint" id="hotkeyHint">Press Ctrl+S to Check Solution</div>
+                </div>
                 <div class="check-button-block">
                     <button id="checkButton" onclick="uploadCode()" style="display: none;">Check</button>
                 </div>
             </div>
 
+            <span class="loader" id="loader"></span>
             <div class="result" id="resultBlock" style="display: none;">
-                <label for="verificationCode" class="verification-label">Answer:</label>
-                <input type="text" id="verificationCode" readonly>
-                <button class="copy-btn" onclick="copyResult()">Copy</button>
+                <div class="verification-label-block">
+                    <label for="verificationCode" class="verification-label">Answer:</label>
+                </div>
+                <div class="verification-code-block">
+                    <div
+                        id="verificationCode" 
+                        class="verification-code"
+                        contenteditable="false" 
+                        role="textbox"
+                        aria-readonly="true">
+                    </div>
+                </div>
+                <div class="copy-btn-block">
+                    <button class="copy-btn" onclick="copyResult()">Copy</button>
+                </div>
             </div>
 
             <div class="error" id="errorBlock" style="display: none;">
-                <h3>Errors detected:</h3>
-                <textarea id="errorList" readonly></textarea>
+                <div class="errors-detected">
+                    <h3>Errors detected:</h3>
+                </div>
+                <div class="error-list-block">
+                    <textarea id="errorList" readonly></textarea>
+                </div>
             </div>
         </div>
     </div>

@@ -5,7 +5,8 @@
     --paragraph-text-color: #3f4058;
     --border-color: #776e65;
     --button-color: #776e65;
-    --button-hover-color: #57504a;
+    --button-hover-color: #6d655d;
+    --button-pressed-color: #615952;
     --options-color: #776e65;
     --button-text-color: #f4efe7;
     --editor-background-color: #eee8ce;
@@ -15,6 +16,45 @@
     --line-number-color: #b8ae9e;
     --active-line-number-color: #f4efe7;
     --selection-color: rgba(63, 64, 88, 0.30);
+
+    --margin-default: 12px 0px;
+    --margin-result-block: 30px 0px 0px 0px;
+
+    --editor-shadow:
+        0 6.7px 16.7px -4.7px rgba(0, 0, 0, 0.40),
+        0 1.3px 10px 0px rgba(0, 0, 0, 0.08),
+        0 3.3px 4px -2px rgba(0, 0, 0, 0.14);
+
+    --container-shadow:
+        0 10.7px 25.3px -8px rgba(0, 0, 0, 0.56),
+        0 2.7px 16.7px 0px rgba(0, 0, 0, 0.12),
+        0 5.3px 6.7px -3.3px rgba(0, 0, 0, 0.2);
+
+    --button-shadow:
+        0 4px 9.3px -2.7px rgba(0, 0, 0, 0.50),
+        0 0.7px 6.7px 0px rgba(0, 0, 0, 0.10),
+        0 2px 2.7px -1.3px rgba(0, 0, 0, 0.18);
+
+    --button-pressed-shadow:
+        0 2px 4.7px -1.3px rgba(0, 0, 0, 0.50),
+        0 0.7px 3.3px 0px rgba(0, 0, 0, 0.10),
+        0 0.7px 1.3px -0.7px rgba(0, 0, 0, 0.18);
+
+    --answer-shadow:
+        0 4px 9.3px -2.7px rgba(0, 0, 0, 0.28),
+        0 0.7px 6.7px 0px rgba(0, 0, 0, 0.06),
+        0 2px 2.7px -1.3px rgba(0, 0, 0, 0.1);
+
+    --button-transition:
+        background-color 0.17s ease-in-out,
+        transform 50ms ease-in-out,
+        box-shadow 50ms ease-in-out;
+
+    --button-pressed-transform: translateY(1px) scale(0.99);
+
+    --button-font-size: min(16px, 1.6vmin);
+    --filename-font-size: min(15px, 1.5vmin);
+    --answer-font-size: min(18px, 1.8vmin);
 }
 
 body {
@@ -34,12 +74,14 @@ body {
     justify-content: center;
     
     width: 80%;
-    height: 80%;
+    height: 80vh;
     max-width: 80vmin;
     background-color: var(--container-color); /* Легкий кофейный фон */
     padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+    box-shadow: var(--container-shadow);
+
 }
 
 .content {
@@ -55,6 +97,7 @@ body {
 
 h2 {
     color: var(--header-text-color); /* Темный кофейный цвет для заголовка */
+    margin-top: 0px;
     margin-bottom: 20px;
 
     -webkit-user-select: none; /* Safari */
@@ -66,6 +109,9 @@ h3 {
     color: var(--header-text-color); /* Темный кофейный цвет для заголовка */
     margin-top: 20px;
     margin-bottom: 10px;
+    font-weight: 500;
+
+    text-align: left;
 
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
@@ -81,8 +127,8 @@ h3 {
 } */
 
 .file-upload {
-    width: 100%;
-    margin: 10px 0px;
+    width: 40%;
+    margin: var(--margin-default);
 
     display: flex;
     align-items: center;
@@ -104,8 +150,10 @@ button {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    font-size: var(--button-font-size);
+    transition: var(--button-transition);
+
+    box-shadow: var(--button-shadow);
 }
 
 
@@ -115,11 +163,34 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
+    margin: var(--margin-result-block);
+}
+
+.verification-label-block {
+    width: 15%;
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.verification-code-block {
+    width: 70%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.copy-btn-block {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .verification-label {
-    font-size: 18px;
+    font-size: var(--answer-font-size);
     color: var(--paragraph-text-color);
     font-weight: bold;
 
@@ -129,30 +200,55 @@ button {
 }
 
 #verificationCode {
-    width: 55%;
-    padding: 8px;
-    font-size: 14px;
+    padding: 7px;
+    font-size: 14.5px;
     text-align: center;
     border: 2px solid var(--border-color);
     border-radius: 8px;
     background-color: var(--editor-background-color);
     color: var(--paragraph-text-color);
     outline: none;
+
+    box-shadow: var(--answer-shadow);
+    box-sizing: border-box;
+
+    /* Новые свойства */
+    display: inline-block;
+    min-width: 120px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: text;
+}
+
+#verificationCode::selection {
+    background-color: var(--selection-color);
 }
 
 .copy-btn {
+    outline: none;
+    user-select: none;
+
     padding: 8px 16px;
     background-color: var(--button-color);
     border: none;
     color: var(--button-text-color);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    font-size: var(--button-font-size);
+    transition: var(--button-transition);
+
+    box-shadow: var(--button-shadow);
 }
 
 .copy-btn:hover {
     background-color: var(--button-hover-color);
+}
+
+.copy-btn:active {
+    transform: var(--button-pressed-transform);
+    box-shadow: var(--button-pressed-shadow)
 }
 
 .copy-btn:disabled {
@@ -184,7 +280,7 @@ button {
     color: var(--paragraph-text-color); /* Цвет для результата */
 }
 #copyBtn {
-    font-size: 16px;
+    font-size: var(--button-font-size);
 }
 
 #fileInput {
@@ -198,14 +294,21 @@ button {
     color: var(--button-text-color);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    font-size: var(--button-font-size);
+    transition: var(--button-transition);
     text-align: center;
     margin-right: 10px;
 
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
+
+    box-shadow: var(--button-shadow);
+}
+
+.custom-file-upload:active {
+    transform: var(--button-pressed-transform);
+    box-shadow: var(--button-pressed-shadow);
 }
 
 .custom-file-upload:hover {
@@ -213,7 +316,8 @@ button {
 }
 
 #fileName {
-    font-size: 16px;
+    padding-left: 8px;
+    font-size: var(--filename-font-size);
     color: var(--paragraph-text-color);
 
     -webkit-user-select: none; /* Safari */
@@ -223,23 +327,33 @@ button {
 
 #errorBlock {
     display: flex;
-    align-items: center;
-    justify-content: center;
-
+    flex-direction: column;
     width: 100%;
+    margin-top: auto; /* Перемещает блок ошибок вниз контейнера */    
+
     height: 40%;
+    min-height: 0; /* Критически важно для flex-контейнера */
+    flex: 0 0 auto; /* Запрещаем растягивание */    
+}
+
+.errors-detected {
+    height: 10%;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
 }
 
 #errorList {
     outline: none;
+    height: 25vh;
     
     font-family: Consolas, 'Courier New', monospace;
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
     font-size: 16px;
-    height: 80%;
-    max-height: 300px;
+    /* height: 80% !important; */
     border: 2px solid var(--border-color);
     border-radius: 8px;
     background-color: var(--editor-background-color);
@@ -247,6 +361,12 @@ button {
     resize: none;      /* разрешаем изменение только по вертикали */
     white-space: pre-wrap; /* сохраняем переносы строк */
     overflow: auto;        /* добавляем скроллинг при переполнении */
+
+    box-shadow: var(--editor-shadow);
+}
+
+#errorList::selection {
+    background-color: var(--selection-color);
 }
 
 /* Кастомизация скроллбара для WebKit-браузеров (Chrome, Edge, Safari) */
@@ -285,12 +405,14 @@ button {
     background-color: var(--editor-background-color);
 
     width: 100%;
-    height: 60%;
+    height: 50%;
     border: 2px solid var(--border-color);
     border-radius: 8px;
-    margin: 10px 0px;
+    margin: var(--margin-default);
 
     box-sizing: border-box;
+
+    box-shadow: var(--editor-shadow);
 }
 
 .buttons-block {
@@ -301,8 +423,8 @@ button {
 }
 
 .check-button-block {
-    margin: 10px 0px;
-    width: 100%;
+    margin: var(--margin-default);
+    width: 15%;
     display: flex;
     align-items: center;
     justify-content: right;
@@ -310,6 +432,7 @@ button {
 
 #checkButton {
     outline: none;
+    user-select: none;
 
     padding: 8px 16px;
     background-color: var(--button-color);
@@ -317,8 +440,15 @@ button {
     color: var(--button-text-color);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    font-size: var(--button-font-size);
+    transition: var(--button-transition);
+
+    box-shadow: var(--button-shadow);
+}
+
+#checkButton:active {
+    transform: var(--button-pressed-transform);
+    box-shadow: var(--button-pressed-shadow);
 }
 
 #checkButton:hover {
@@ -327,6 +457,7 @@ button {
 
 .ace_gutter {
     padding-top: 8px;
+    bottom: 0px !important;
 }
 .ace_content {
     padding: 8px 0px 0px 4px;
@@ -418,7 +549,7 @@ button {
 
 /* Стиль для блока выбора задания */
 .program-selector {
-    margin: 10px 0px;
+    margin: var(--margin-default);
     text-align: center;
 }
 
@@ -433,7 +564,7 @@ button {
     border-radius: 8px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 50ms ease-in-out;
 
 
     appearance: none;          /* убираем системную стрелку */
@@ -445,6 +576,13 @@ button {
     background-position: right 10px center;
     background-size: 8px 10px;
     padding-right: 30px;    
+
+    box-shadow: var(--button-shadow);
+}
+
+.program-selector select:active {
+    background-color: var(--button-pressed-color) !important;
+    /* box-shadow: var(--button-pressed-shadow); */
 }
 
 .program-selector select:hover {
@@ -453,9 +591,82 @@ button {
 
 /* Не трогаем option — они будут системными */
 .program-selector option {
-    border-radius: 8px;
+    border-radius: 8px !important;
 
     background-color: var(--options-color);
     color: var(--button-text-color);
 }
 
+/* .loader {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 2.5px solid var(--button-hover-color);
+    border-right: 2.5px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+  
+@keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+}  */
+
+.loader, .loader:before, .loader:after {
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    animation-fill-mode: both;
+    animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+.loader {
+    display: none;
+
+    color: var(--button-color);
+    font-size: 7px;
+    position: relative;
+    text-indent: -9999em;
+    transform: translateZ(0);
+    animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loader:before {
+    left: -3.5em;
+    animation-delay: -0.32s;
+}
+.loader:after {
+    left: 3.5em;
+}
+
+@keyframes bblFadInOut {
+    0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em }
+    40% { box-shadow: 0 2.5em 0 0 }
+}
+
+.hotkey-hint-block {
+    width: 45%;
+
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.hotkey-hint {
+    user-select: none;    
+
+    display: none;
+
+    width: 100%;
+    text-align: right;
+    font-size: var(--filename-font-size);
+    color: var(--button-hover-color);
+}

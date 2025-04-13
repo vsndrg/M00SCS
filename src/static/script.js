@@ -7,7 +7,6 @@ window.onload = () => {
     editor.session.setTabSize(2);
     editor.session.setUseSoftTabs(true);
 
-    // Настройка фона и шрифта
     editor.setOptions({
         fontFamily: "Consolas, 'Courier New', monospace",
         fontSize: "14px",
@@ -18,15 +17,25 @@ window.onload = () => {
 
     const toggleCheckButton = () => {
         const button = document.getElementById("checkButton");
+        const hotkeyHint = document.getElementById("hotkeyHint");
         if (editor.getValue().trim() !== "") {
             button.style.display = "block";
+            hotkeyHint.style.display = "block";
         }
         else {
             button.style.display = "none";
+            hotkeyHint.style.display = "none";
         }
     };
-
     editor.session.on('change', toggleCheckButton);
+
+    editor.commands.addCommand({
+        name: "customCheck",
+        bindKey: { win: "Ctrl-S", mac: "Cmd-S" },
+        exec: uploadCode
+    });
+
+    editor.focus();
 }
 
 document.getElementById("fileInput").addEventListener("change", (event) => {
@@ -34,7 +43,6 @@ document.getElementById("fileInput").addEventListener("change", (event) => {
     const fileNameDisplay = document.getElementById("fileName");
     const verificationCodeInput = document.getElementById("verificationCode");
     const copyButton = document.querySelector(".copy-btn");
-    const resultBlock = document.getElementById("resultBlock");
 
     if (event.target.files.length > 0) {
         const file = event.target.files[0];
@@ -54,19 +62,16 @@ document.getElementById("fileInput").addEventListener("change", (event) => {
 
         setEditorCode(file);
         uploadFile(file);
-
-        // Сменить текст кнопки на "Copy"
-        copyButton.textContent = "Copy";
-        copyButton.disabled = false;
     } else {
         fileNameDisplay.textContent = "No file chosen";
         fileLabel.textContent = "Choose File";
-        verificationCodeInput.value = "";
+        verificationCodeInput.textContent = "";
 
         // Сменить текст кнопки на "Copy"
         copyButton.textContent = "Copy";
         copyButton.disabled = false;
     }
+    event.target.value = '';
 });
 
 const setEditorCode = (file) => {
@@ -78,7 +83,7 @@ const setEditorCode = (file) => {
     reader.readAsText(file);
 }
 
-const uploadCode = async () => {
+const uploadCode = () => {
     const code = editor.getValue();
     const programName = document.getElementById("programSelect").value;
 
@@ -90,27 +95,34 @@ const uploadCode = async () => {
     const blob = new Blob([code], { type: "plain/text" });
     const file = new File([blob], programName + ".c", { type: "plain/text" });
 
-    await uploadFile(file);
+    uploadFile(file);
 };
 
-const uploadFile = async (file) => {
+const uploadFile = (file) => {
     const errorBlock = document.getElementById("errorBlock");
     const errorList = document.getElementById("errorList");
     const verificationCode = document.getElementById("verificationCode");
     const programName = document.getElementById("programSelect").value;
+    const loader = document.getElementById("loader");
+    const resultBlock = document.getElementById("resultBlock");
+    const copyButton = document.querySelector(".copy-btn");
 
     if (programName == "") {
         alert("Choose program!");
         return;
     }
 
+    resultBlock.style.display = "none";
+
     errorList.value = "";
     errorBlock.style.display = "none";
 
+    loader.style.display = "block";
+    
     const formData = new FormData();
     formData.append("file", file);
 
-    await fetch("http://192.168.0.10:8080", {
+    fetch("http://192.168.0.10:8080", {
         method: "POST",
         body: formData,
     })
@@ -119,21 +131,27 @@ const uploadFile = async (file) => {
         console.log("Server Response:", data);
 
         if (data.error) {
+            loader.style.display = "none";
             errorList.value = data.error;
             errorBlock.style.display = "block";
-            verificationCode.value = "";
+            verificationCode.textContent = "";
             resultBlock.style.display = "none";
         }
         else {
+            loader.style.display = "none";
             errorBlock.style.display = "none";
             errorList.value = "";
             resultBlock.style.display = "flex";
-            verificationCode.value = data.verificationCode;
+            verificationCode.textContent = data.verificationCode;
         }
     })
     .catch(error => {
         console.error("Error during file upload: ", error);
     });
+
+    // Сменить текст кнопки на "Copy"
+    copyButton.textContent = "Copy";
+    copyButton.disabled = false;
 };
 
 const setVerificationCode = (file) => {
