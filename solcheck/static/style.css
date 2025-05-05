@@ -486,12 +486,12 @@ button {
 }
 
 .ace_gutter {
-    padding-top: 8px;
+    /* padding-top: 8px; */
     bottom: 0px !important;
 }
 
 .ace_content {
-    padding: 8px 0px 0px 4px;
+    /* padding: 8px 0px 0px 4px; */
 }
 
 .ace_scroller {
@@ -523,6 +523,7 @@ button {
 
 /* Вертикальный скроллбар Ace */
 .ace_editor .ace_scrollbar-v {
+    top: 0px !important;
     width: 12px !important;
     /* Ширина как у #errorList */
 }
