@@ -114,6 +114,37 @@ def gen_H07FTRL():
         cases.append((str(N), str(fact)))
     write_tests("h07ftrl/test.txt", cases)
 
+def gen_T03GCD():
+    cases = []
+    special = [
+        (0, 0),
+        (0, 5),
+        (5, 0),
+        (1, 7),
+        (7, 1),
+        (5, 5),
+        (-5, 5),
+        (5, -5),
+        (-5, -5),
+        (17, 13),
+        (12, 18),
+        (100000000, 50000000)
+    ]
+    for a, b in special:
+        g = math.gcd(a, b)
+        if a == 0 or b == 0:
+            l = 0
+        else:
+            l = abs(a // g * b)
+        cases.append((f"{a} {b}", f"gcd = {g}\nlcm = {l}"))
+    while len(cases) < 100:
+        a = random.randint(-1000, 1000)
+        b = random.randint(-1000, 1000)
+        g = math.gcd(a, b)
+        l = 0 if a == 0 or b == 0 else abs(a // g * b)
+        cases.append((f"{a} {b}", f"gcd = {g}\nlcm = {l}"))
+    write_tests("t03gcd/test.txt", cases)
+
 if __name__ == '__main__':
     gen_H01POW23()
     gen_H02FSQRT()
@@ -122,3 +153,6 @@ if __name__ == '__main__':
     gen_H05GERON()
     gen_H06SUM()
     gen_H07FTRL()
+    gen_T03GCD()
+
+
