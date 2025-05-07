@@ -136,13 +136,13 @@ def gen_T03GCD():
             l = 0
         else:
             l = abs(a // g * b)
-        cases.append((f"{a} {b}", f"gcd = {g}\nlcm = {l}"))
+        cases.append((f"{a} {b}", f"gcd({a}, {b}) = {g}\nlcm({a}, {b}) = {l}"))
     while len(cases) < 100:
         a = random.randint(-1000, 1000)
         b = random.randint(-1000, 1000)
         g = math.gcd(a, b)
         l = 0 if a == 0 or b == 0 else abs(a // g * b)
-        cases.append((f"{a} {b}", f"gcd = {g}\nlcm = {l}"))
+        cases.append((f"{a} {b}", f"gcd({a}, {b}) = {g}\nlcm({a}, {b}) = {l}"))
     write_tests("t03gcd/test.txt", cases)
 
 if __name__ == '__main__':
@@ -154,5 +154,3 @@ if __name__ == '__main__':
     gen_H06SUM()
     gen_H07FTRL()
     gen_T03GCD()
-
-
