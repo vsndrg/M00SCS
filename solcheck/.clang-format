@@ -1,16 +1,30 @@
+# .clang-format for clang-format 18.1.3
+
 BasedOnStyle: Google
+
+# Alignment
 AlignAfterOpenBracket: Align
 AlignArrayOfStructures: None
 AlignConsecutiveAssignments: None
 AlignConsecutiveBitFields: None
 AlignConsecutiveDeclarations: None
 AlignConsecutiveMacros: Consecutive
-AlignConsecutiveTableGenBreakingDAGArgColons: None
-AlignConsecutiveTableGenCondOperatorColons: None
-AlignConsecutiveTableGenDefinitionColons: None
-AlignEscapedNewlines: LeftWithLastLine
+# TableGen options (not supported in 18.x):
+# AlignConsecutiveTableGenBreakingDAGArgColons: None
+# AlignConsecutiveTableGenCondOperatorColons: None
+# AlignConsecutiveTableGenDefinitionColons: None
+
+# clang-format 18.1.3 does not support "LeftWithLastLine",
+# so disable escaped newline alignment entirely.
+# (If needed: use equivalent AlignEscapedNewlines: Left)
+AlignEscapedNewlines: Left
+
 AlignOperands: false
+
+# Align trailing comments: uncomment if needed
 # AlignTrailingComments: Always
+
+# Short constructs on a single line
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: false
@@ -20,8 +34,13 @@ AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: None
 AllowShortLoopsOnASingleLine: false
 AllowShortNamespacesOnASingleLine: false
+
+# Argument/parameter packing
 BinPackArguments: false
 BinPackParameters: OnePerLine
+ExperimentalAutoDetectBinPacking: false
+
+# Braces, wrapping, and splitting empty records
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterClass: true
@@ -31,41 +50,60 @@ BraceWrapping:
   AfterNamespace: true
   AfterStruct: true
   AfterUnion: true
-  AfterExternBlock: true
+  # AfterExternBlock: true  # not available in 18.x
   BeforeElse: true
   BeforeWhile: false
   SplitEmptyFunction: true
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
+
 BreakArrays: false
 BreakFunctionDefinitionParameters: false
+
+# Namespaces & indentation
 CompactNamespaces: false
+NamespaceIndentation: All
+
+# Limits
 ColumnLimit: 300
+MaxEmptyLinesToKeep: 999
+
+# Cpp11 braced list style
 Cpp11BracedListStyle: true
+
+# Empty lines around access modifiers
 EmptyLineAfterAccessModifier: Leave
 EmptyLineBeforeAccessModifier: Leave
-ExperimentalAutoDetectBinPacking: false
-FixNamespaceComments: false
+
+# Indentation
+IndentWidth: 2
 IndentAccessModifiers: false
 IndentCaseBlocks: false
 IndentCaseLabels: false
-IndentWidth: 2
+
+# Initializers, comments, and other options
 InsertBraces: false
-KeepEmptyLines:
-  AtStartOfBlock: false
-Language: C
-LineEnding: CRLF
-MaxEmptyLinesToKeep: 999
-NamespaceIndentation: All
 PackConstructorInitializers: NextLine
-PointerAlignment: Right
-QualifierAlignment: Left
-ReferenceAlignment: Right
+# Fix namespace comments: not supported in 18.x
+# FixNamespaceComments: false
 RemoveBracesLLVM: true
-RemoveEmptyLinesInUnwrappedLines: true
-SeparateDefinitionBlocks: Always
+# Remove empty lines in unwrapped lines: not supported in 18.x
+# RemoveEmptyLinesInUnwrappedLines: true
+# Separate definition blocks: not supported in 18.x
+# SeparateDefinitionBlocks: Always
+
 SortIncludes: Never
 SortUsingDeclarations: Never
+
+Language: C
+LineEnding: CRLF
+
+# Pointer/reference alignment
+PointerAlignment: Right
+ReferenceAlignment: Right
+QualifierAlignment: Left
+
+# Spaces
 SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: false
@@ -75,25 +113,33 @@ SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: true
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
+
+# clang-format 18.x does not support Custom for parentheses,
+# so apply only control statements spacing rule:
 SpaceBeforeParens: Custom
 SpaceBeforeParensOptions:
   AfterControlStatements: true
+  AfterFunctionDeclarationName: false
   AfterFunctionDefinitionName: false
   AfterOverloadedOperator: false
   AfterPlacementOperator: true
   BeforeNonEmptyParentheses: false
+# To adjust other elements, you can add:
+#   AfterFunctionDeclarationName: false
+#   AfterOverloadedOperator: false
+#   AfterPlacementOperator: true
+
 SpaceBeforeRangeBasedForLoopColon: true
 SpaceBeforeSquareBrackets: false
+
+# clang-format 18.x does not allow fine-grained control within parentheses,
+# so disable spaces inside parentheses.
+SpacesInParens: Never
+
 SpaceInEmptyBlock: false
 SpacesInAngles: Never
 SpacesInContainerLiterals: false
-SpacesInLineCommentPrefix:
-SpacesInParens: Custom
-SpacesInParensOptions:
-  InConditionalStatements: false
-  InCStyleCasts: false
-  InEmptyParentheses: false
-  Other: false
 SpacesInSquareBrackets: false
+
 Standard: Auto
 UseTab: Never
