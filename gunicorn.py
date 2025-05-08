@@ -6,3 +6,4 @@ wsgi_app = 'solcheck:app'
 keyfile = './ssl/privkey.pem'
 certfile = './ssl/fullchain.pem'
 preload_app = True
+pidfile = '/var/run/solcheck.pid'
