@@ -5,7 +5,7 @@ import os
 import subprocess
 
 # Initialize libclang
-cindex.Config.set_library_file(r"C:/Program Files/LLVM/bin/libclang.dll")
+cindex.Config.set_library_file("/usr/lib/llvm-18/lib/libclang.so.1")
 index = cindex.Index.create()
 
 # Read text from file function.
@@ -206,11 +206,11 @@ def cut_error_msg(stderr):
 def check_clang(file_path):
     try:
         result = subprocess.run(
-            [r"C:\Program Files\LLVM\bin\clang-format", "--dry-run", "--Werror", file_path],
+            ["clang-format", "--dry-run", "--Werror", file_path],
             capture_output=True,
             text=True,
             check=False,
-            shell=True
+            shell=False
         )
         if result.returncode != 0:
             return False, cut_error_msg(result.stderr) # "\n".join(result.stderr.splitlines()[-2:])
@@ -218,4 +218,3 @@ def check_clang(file_path):
     except FileNotFoundError:
         return False, "Error: clang-format not found. Make sure it is installed and in PATH."
 # End of 'check_clang' function
-

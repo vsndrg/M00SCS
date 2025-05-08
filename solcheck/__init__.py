@@ -4,7 +4,7 @@ from flask_limiter.util import get_remote_address
 import subprocess
 import os
 import random
-# from solcheck.reformat import reformat, check_clang
+from solcheck.reformat import reformat, check_clang
 from solcheck.check import compile, run_tests
 import hashlib
 from flask_cors import CORS
@@ -73,25 +73,18 @@ def check():
 
 
     # # Reformat code
-    # print(f"Debug: Function call 'reformat(\"{file_path}\")'")
-    # success, reformat_message = reformat(file_path)
-    # if not success:
-    #     return jsonify({"error": reformat_message}), 400
-    
-    # # Check that program name matches selected name
-    # task_name = request.form.get("task", "")
-    # if file.filename != (task_name + ".C"):
-    #     return jsonify({"error": "Error: Wrong task selected or wrong file name.\n\n"
-    #                              "File name must match this format: <TASK_NAME>.C, "
-    #                              "where <TASK_NAME> is the task name you selected."}), 400
-    
-    # formatted_file_path = file_path.replace('.C', '_reformat.c')
+    print(f"Debug: Function call 'reformat(\"{file_path}\")'")
+    success, reformat_message = reformat(file_path)
+    if not success:
+        return jsonify({"error": reformat_message}), 400
+        
+    formatted_file_path = file_path.replace('.c', '_reformat.c')
 
-    # # Check code style with clang-format
-    # print(f"Debug: Function call 'check_clang(\"{formatted_file_path}\")'")
-    # success, check_message = check_clang(formatted_file_path)
-    # if not success:
-    #     return jsonify({"error": check_message}), 400
+    # Check code style with clang-format
+    print(f"Debug: Function call 'check_clang(\"{formatted_file_path}\")'")
+    success, check_message = check_clang(formatted_file_path)
+    if not success:
+        return jsonify({"error": check_message}), 400
     
     ### TODO : DELETE
     formatted_file_path = file_path
