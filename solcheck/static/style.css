@@ -490,9 +490,9 @@ button {
     bottom: 0px !important;
 }
 
-.ace_content {
-    /* padding: 8px 0px 0px 4px; */
-}
+/* .ace_content {
+    padding: 8px 0px 0px 4px;
+} */
 
 .ace_scroller {
     right: 12px !important;
