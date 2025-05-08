@@ -37,8 +37,7 @@ AllowShortNamespacesOnASingleLine: false
 
 # Argument/parameter packing
 BinPackArguments: false
-BinPackParameters: OnePerLine
-ExperimentalAutoDetectBinPacking: false
+BinPackParameters: false
 
 # Braces, wrapping, and splitting empty records
 BreakBeforeBraces: Custom
@@ -65,7 +64,7 @@ CompactNamespaces: false
 NamespaceIndentation: All
 
 # Limits
-ColumnLimit: 300
+ColumnLimit: 999
 MaxEmptyLinesToKeep: 999
 
 # Cpp11 braced list style
