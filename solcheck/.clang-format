@@ -95,7 +95,7 @@ RemoveBracesLLVM: true
 SortIncludes: Never
 SortUsingDeclarations: Never
 
-Language: C
+Language: Cpp
 LineEnding: CRLF
 
 # Pointer/reference alignment
