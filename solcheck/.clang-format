@@ -40,6 +40,7 @@ BraceWrapping:
 BreakArrays: false
 BreakFunctionDefinitionParameters: false
 CompactNamespaces: false
+ColumnLimit: 300
 Cpp11BracedListStyle: true
 EmptyLineAfterAccessModifier: Leave
 EmptyLineBeforeAccessModifier: Leave
