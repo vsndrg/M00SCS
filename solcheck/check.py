@@ -38,7 +38,7 @@ def compile(src_filename, out_filename):
 def run(exe_filename, test_input, timeout_sec = 3):
     passed = True
     try:
-        print(f"Debug: exe_filename: {exe_filename}, test_input: {test_input}")
+        # print(f"Debug: exe_filename: {exe_filename}, test_input: {test_input}")
         result = subprocess.run(
             [exe_filename],
             input=test_input,
