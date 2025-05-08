@@ -57,7 +57,6 @@ BraceWrapping:
   SplitEmptyNamespace: true
 
 BreakArrays: false
-BreakFunctionDefinitionParameters: false
 
 # Namespaces & indentation
 CompactNamespaces: false
