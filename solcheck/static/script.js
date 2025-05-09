@@ -11,7 +11,6 @@ window.onload = () => {
     editor.session.setTabSize(2);
     editor.session.setUseSoftTabs(true);
 
-    editor.setOption("scrollPastEnd", 0.5);
     editor.setOptions({
         fontFamily: "Consolas, 'Courier New', monospace",
         fontSize: "14px",
