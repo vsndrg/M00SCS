@@ -5,7 +5,7 @@ import subprocess
 import os
 import random
 from solcheck.reformat import reformat, check_clang
-from solcheck.check import compile, run_tests
+from solcheck.check import compile, run_tests, check_coq_goals
 import hashlib
 from flask_cors import CORS
 import sys
@@ -120,8 +120,11 @@ def check(lang):
         return jsonify({"error": compile_message}), 400
     elif ext == '.v':
         print(f"Debug: compile_message = {compile_message}")
-        return jsonify({"log": compile_message})
     
+    # Check Coq goals completion
+    out, err = check_coq_goals(formatted_file_path, '')
+    print(f"Debug: out = {out}\n       err = {err}")
+
     # Check program output on tests
     tests_message = ''
     if ext == '.C':

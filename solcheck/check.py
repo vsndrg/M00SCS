@@ -32,6 +32,22 @@ def compile(src_filename, out_filename, ext):
     return True, result.stdout
 # End of 'compile' function
 
+# Check Coq goals completion function.
+# ARGUMENTS:
+#   - file path:
+#       file_path;
+# RETURNS:
+#   (?) ?.
+#
+def check_coq_goals(file_path, goals_path):
+    with open(file_path, 'r') as f:
+        file_content = f.read()
+    
+    process = subprocess.run(["coqtop", "-quiet"], input=file_content, capture_output=True, text=True)
+
+    return process.stdout, process.stderr
+# End of 'check_coq_goals' function
+
 # Run program on input test function.
 # ARGUMENTS:
 #   - executable file name:
