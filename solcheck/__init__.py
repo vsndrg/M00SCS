@@ -63,6 +63,7 @@ def check():
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
     
+    print("Debug: Getting prefix from form")
     lang = request.form.get("prefix", "")
 
     print(f"Debug: lang = {lang}")
