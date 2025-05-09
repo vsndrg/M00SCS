@@ -109,7 +109,7 @@ def check(lang):
             return jsonify({"error": check_message}), 400
 
     # Compile program
-    solution_name, ext = os.path.splitext(filename)
+    solution_name, dummy = os.path.splitext(filename)
     print(f"Debug: Variable: solution_name: {solution_name}")
 
     exe_path = os.path.join(OUT_DIR, filename.replace(f"{ext.lower()}", ""))  # for Windows: exe_path = os.path.join(OUT_DIR, filename.replace(".c", ".exe"))
