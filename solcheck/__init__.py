@@ -114,7 +114,7 @@ def check(lang):
 
     exe_path = os.path.join(OUT_DIR, filename.replace(f"{ext.lower()}", ""))  # for Windows: exe_path = os.path.join(OUT_DIR, filename.replace(".c", ".exe"))
     print(f"Debug: Function call 'compile(\"{formatted_file_path}\", \"{exe_path}\")'")
-    success, compile_message = compile(formatted_file_path, exe_path)
+    success, compile_message = compile(formatted_file_path, exe_path, ext)
     if not success:
         return jsonify({"error": compile_message}), 400
     

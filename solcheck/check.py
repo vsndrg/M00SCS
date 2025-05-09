@@ -11,16 +11,13 @@ import re
 #       src_filename;
 #   - output executable file name:
 #       out_filename;
+#   - file extension:
+#       ext;
 # RETURNS:
 #   (bool, string) compile success and error message or output string.
 #
-def compile(src_filename, out_filename):
-    # Get file extension
-    root, ext = os.path.splitext(src_filename)
-
-    # Compile code
+def compile(src_filename, out_filename, ext):
     compile_cmd = ''
-    print(f"Debug: ext = {ext}")
     if ext == '.C':
         compile_cmd = ["clang", "-std=c99", src_filename, "-o", out_filename]
     elif ext == '.v':
