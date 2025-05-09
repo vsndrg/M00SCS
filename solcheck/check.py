@@ -51,7 +51,7 @@ def check_coq_goals(file_path, regex):
         print(f"Debug: Goals list:\n{process.stdout}")
         return True, ''
     else:
-        return False, f"Error: Not all goals are comleted:\n{process.stdout}\n"
+        return False, f"Error: Not all goals are comleted.\n"  # return False, f"Error: Not all goals are comleted:\n{process.stdout}\n"
 # End of 'check_coq_goals' function
 
 # Run program on input test function.
