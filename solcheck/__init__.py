@@ -30,33 +30,57 @@ os.makedirs(TESTS_DIR, exist_ok=True)
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
+# Redirect from main to 'c' function.
+# ARGUMENTS: None.
+# RETURNS:
+#   (BaseResponse) redirect.
+@app.route('/', methods=['GET'])
+def redirect_c():
+    return redirect('https://solcheck.ru/c')
+    # return send_from_directory('./static', 'index.html')
+
+# Get static page function.
+# ARGUMENTS: None.
+# RETURNS:
+#   (Response) redirect.
+@app.route("/c", methods=['GET'])
+@app.route("/cpp", methods=['GET'])
+@app.route("/coq", methods=['GET'])
+def index(lang=None):
+    prefix = request.path.lstrip('/')
+    return send_from_directory(f"./static/{prefix}", "index.html")
+
 # Check source code style with clang-format function
 # ARGUMENTS: None.
 # RETURNS:
 #   JSON object with message.
 #
-@app.route("/", methods=["POST"])
+@app.route("/<lang>", methods=["POST"])
 @limiter.limit("3 per 5 seconds")
-def check():
+def check(lang):
     # return jsonify({"error": "Wait..."}), 400
     # Check if file uploaded
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
+    
+    ext = {'c': '.C', 'cpp': '.cpp', 'coq': '.v'}.get(lang)
+    if ext is None:
+        return jsonify({"error": f"Unknown language: {lang}"})
 
     # Check file suitability
     file = request.files["file"]
 
     # Check that program name matches selected name
     task_name = request.form.get("task", "")
-    if file.filename != (task_name + ".C"):
-        return jsonify({"error": "Error: Wrong task selected or wrong file name.\n\n"
-                                 "File name must match this format: <TASK_NAME>.C, "
+    if file.filename != (task_name + ext):
+        return jsonify({"error": f"Error: Wrong task selected or wrong file name.\n\n"
+                                 "File name must match this format: <TASK_NAME>{ext}, "
                                  "where <TASK_NAME> is the task name you selected."}), 400
 
     # Save lowered filename    
     filename = file.filename.lower()
-    if not (filename.endswith(".c")):
-        return jsonify({"error": "Error: Only .C files are allowed"}), 400
+    if not (filename.endswith(f'{ext.lower()}')):
+        return jsonify({"error": f"Error: Only {ext} files are allowed"}), 400
 
     # Check 
 
@@ -66,29 +90,27 @@ def check():
     print(f"Debug: Variable: file_path: {file_path}")
     file.save(file_path)
 
-
-    # # Reformat code
-    print(f"Debug: Function call 'reformat(\"{file_path}\")'")
-    success, reformat_message = reformat(file_path)
-    if not success:
-        return jsonify({"error": reformat_message}), 400
-        
-    formatted_file_path = file_path.replace('.c', '_reformat.c')
-
-    # Check code style with clang-format
-    print(f"Debug: Function call 'check_clang(\"{formatted_file_path}\")'")
-    success, check_message = check_clang(formatted_file_path)
-    if not success:
-        return jsonify({"error": check_message}), 400
-    
-    ### TODO : DELETE
+    # Reformat code
     formatted_file_path = file_path
+    if ext == '.C':
+        print(f"Debug: Function call 'reformat(\"{file_path}\")'")
+        success, reformat_message = reformat(file_path)
+        if not success:
+            return jsonify({"error": reformat_message}), 400
+        
+        formatted_file_path = file_path.replace('.c', '_reformat.c')
+
+        # Check code style with clang-format
+        print(f"Debug: Function call 'check_clang(\"{formatted_file_path}\")'")
+        success, check_message = check_clang(formatted_file_path)
+        if not success:
+            return jsonify({"error": check_message}), 400
 
     # Compile program
     solution_name, ext = os.path.splitext(filename)
     print(f"Debug: Variable: solution_name: {solution_name}")
 
-    exe_path = os.path.join(OUT_DIR, filename.replace(".c", ""))  # for Windows: exe_path = os.path.join(OUT_DIR, filename.replace(".c", ".exe"))
+    exe_path = os.path.join(OUT_DIR, filename.replace(f"{ext.lower()}", ""))  # for Windows: exe_path = os.path.join(OUT_DIR, filename.replace(".c", ".exe"))
     print(f"Debug: Function call 'compile(\"{formatted_file_path}\", \"{exe_path}\")'")
     success, compile_message = compile(formatted_file_path, exe_path)
     if not success:
@@ -124,19 +146,6 @@ def check():
         "verificationCode": hash
         })
 # End of 'check_style' function
-
-# Redirect from main to 'c' function.
-# ARGUMENTS: None.
-# RETURNS:
-#   (BaseResponse) redirect.
-@app.route('/', methods=['GET'])
-def redirect_c():
-    return redirect('https://solcheck.ru/c')
-    # return send_from_directory('./static', 'index.html')
-
-@app.route("/c", methods=['GET'])
-def index_c():
-    return send_from_directory('./static/c', 'index.html')
 
 # Limiter error hanfler function.
 # ARGUMENTS:
