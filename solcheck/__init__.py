@@ -35,11 +35,6 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 # RETURNS:
 #   JSON object with message.
 #
-
-@app.route('/test')
-def test_route():
-    return 'hi world'
-
 @app.route("/", methods=["POST"])
 @limiter.limit("3 per 5 seconds")
 def check():
@@ -130,12 +125,18 @@ def check():
         })
 # End of 'check_style' function
 
+# Redirect from main to 'c' function.
+# ARGUMENTS: None.
+# RETURNS:
+#   (BaseResponse) redirect.
 @app.route('/', methods=['GET'])
-def index():
-    # if random.random() < 1/100:
-    #     return redirect('...')
+def redirect_c():
+    return redirect('https://solcheck.ru/c')
+    # return send_from_directory('./static', 'index.html')
 
-    return send_from_directory('./static', 'index.html')
+@app.route("/c", methods=['GET'])
+def index_c():
+    return send_from_directory('./static/c', 'index.html')
 
 # Limiter error hanfler function.
 # ARGUMENTS:
