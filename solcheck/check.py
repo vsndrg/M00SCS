@@ -167,11 +167,13 @@ def run_tests(exe_filename, tests_dir, ext, coq_filename = ''):
         expexted_ouput = parts[1].strip()
         # print(f"Debug: Test #{i}: {test_input}\n{expexted_ouput}")
 
-        # Run program on test        
-        passed, program_ouput, err = run(exe_filename, test_input if not is_regex else "")
-        if not passed:
-            print(err)
-            return False, err
+        # Run program on test
+        passed, program_ouput, = False, ''
+        if ext == '.C':
+            passed, program_ouput, err = run(exe_filename, test_input if not is_regex else "")
+            if not passed:
+                print(err)
+                return False, err
             
         # Compare program output with correct output
         if not is_regex:
