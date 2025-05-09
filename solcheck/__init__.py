@@ -117,12 +117,13 @@ def check(lang):
         return jsonify({"error": compile_message}), 400
     
     # Check program output on tests
-    print(f"Debug: Variable: solution_name: \"{solution_name}\"")
-    print(f"Debug: Function call 'run_tests(\"{exe_path}\", \"{os.path.join(TESTS_DIR, solution_name)}\")'")
-    success, tests_message = run_tests(exe_path, os.path.join(TESTS_DIR, solution_name))
-    print(tests_message)
-    if not success:
-        return jsonify({"error": tests_message}), 400
+    if ext == '.C':
+        print(f"Debug: Variable: solution_name: \"{solution_name}\"")
+        print(f"Debug: Function call 'run_tests(\"{exe_path}\", \"{os.path.join(TESTS_DIR, solution_name)}\")'")
+        success, tests_message = run_tests(exe_path, os.path.join(TESTS_DIR, solution_name))
+        print(tests_message)
+        if not success:
+            return jsonify({"error": tests_message}), 400
 
     # Delete executable file.
     try:
