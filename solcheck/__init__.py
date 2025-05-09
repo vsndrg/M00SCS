@@ -118,6 +118,9 @@ def check(lang):
     success, compile_message = compile(formatted_file_path, exe_path, ext)
     if not success:
         return jsonify({"error": compile_message}), 400
+    elif ext == '.v':
+        print(f"Debug: compile_message = {compile_message}")
+        return jsonify({"log": compile_message})
     
     # Check program output on tests
     tests_message = ''
