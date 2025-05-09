@@ -173,7 +173,7 @@ const uploadFile = (file, section) => {
 
     formData.append("prefix", section);
 
-    fetch(`https://solcheck.ru/${section}`, {
+    fetch(`/${section}`, {
         method: "POST",
         body: formData,
     })
