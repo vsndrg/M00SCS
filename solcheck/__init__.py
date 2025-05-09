@@ -55,7 +55,7 @@ def index(lang=None):
 # RETURNS:
 #   JSON object with message.
 #
-@app.route("/<string:lang>", methods=["POST"])
+@app.route("/<lang>", methods=["POST"])
 @limiter.limit("3 per 5 seconds")
 def check(lang):
     # return jsonify({"error": "Wait..."}), 400

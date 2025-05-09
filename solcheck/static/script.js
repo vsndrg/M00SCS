@@ -142,7 +142,7 @@ const uploadCode = () => {
     const blob = new Blob([code], { type: "plain/text" });
     const file = new File([blob], programName + `.${ext}`, { type: "plain/text" });
 
-    uploadFile(file);
+    uploadFile(file, section);
 };
 
 const uploadFile = (file, section) => {
