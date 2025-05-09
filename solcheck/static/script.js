@@ -7,7 +7,7 @@ const get_section = () => {
 window.onload = () => {
     editor = ace.edit("editor");
     editor.setTheme("ace/theme/solarized_light");
-    editor.session.setMode(get_section() == 'coq' ? "ace/mode/ocaml" : "ace/mode/c_cpp");
+    editor.session.setMode(get_section() == 'coq' ? "ace/mode/plain_text" : "ace/mode/c_cpp");
     editor.session.setTabSize(2);
     editor.session.setUseSoftTabs(true);
 
