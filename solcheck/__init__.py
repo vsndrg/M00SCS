@@ -63,6 +63,7 @@ def check(lang):
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
     
+    print(f"Debug: lang = {lang}")
     ext = {'c': '.C', 'cpp': '.cpp', 'coq': '.v'}.get(lang)
     if ext is None:
         return jsonify({"error": f"Unknown language: {lang}"})
