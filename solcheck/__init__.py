@@ -94,6 +94,7 @@ def check(lang):
 
     # Reformat code
     formatted_file_path = file_path
+    check_message, reformat_message = '', ''
     if ext == '.C':
         print(f"Debug: Function call 'reformat(\"{file_path}\")'")
         success, reformat_message = reformat(file_path)
@@ -119,6 +120,7 @@ def check(lang):
         return jsonify({"error": compile_message}), 400
     
     # Check program output on tests
+    tests_message = ''
     if ext == '.C':
         print(f"Debug: Variable: solution_name: \"{solution_name}\"")
         print(f"Debug: Function call 'run_tests(\"{exe_path}\", \"{os.path.join(TESTS_DIR, solution_name)}\")'")
@@ -140,9 +142,6 @@ def check(lang):
     print(f"Debug: Task name for hash: {os.path.basename(file_path).encode('utf-8')}")
     hash = hashlib.sha256(os.path.basename(file_path).encode('utf-8')).hexdigest()
 
-    # TODO : Delete this
-    reformat_message = "Delete this."
-    check_message = "Delete this."
     return jsonify({
         "reformat": reformat_message, "check": check_message,
         "compile": compile_message, "tests": tests_message,
