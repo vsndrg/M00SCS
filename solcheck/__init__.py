@@ -122,15 +122,15 @@ def check(lang):
         print(f"Debug: compile_message = {compile_message}")
     
     # Check Coq goals completion
-    out, err = check_coq_goals(formatted_file_path, '')
-    print(f"Debug: out = {out}\n       err = {err}")
+    # out, err = check_coq_goals(formatted_file_path, '')
+    # print(f"Debug: out = {out}\n       err = {err}")
 
     # Check program output on tests
     tests_message = ''
     if ext == '.C' or '.v':
         print(f"Debug: Variable: solution_name: \"{solution_name}\"")
         print(f"Debug: Function call 'run_tests(\"{exe_path}\", \"{os.path.join(TESTS_DIR, solution_name)}\")'")
-        success, tests_message = run_tests(exe_path, os.path.join(TESTS_DIR, solution_name))
+        success, tests_message = run_tests(exe_path, os.path.join(TESTS_DIR, solution_name), ext, formatted_file_path)
         print(tests_message)
         if not success:
             return jsonify({"error": tests_message}), 400
