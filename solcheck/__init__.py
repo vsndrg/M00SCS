@@ -55,14 +55,16 @@ def index(lang=None):
 # RETURNS:
 #   JSON object with message.
 #
-@app.route("/<lang>", methods=["POST"])
+@app.route("/", methods=["POST"])
 @limiter.limit("3 per 5 seconds")
-def check(lang):
+def check():
     # return jsonify({"error": "Wait..."}), 400
     # Check if file uploaded
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
     
+    lang = request.form.get("prefix", "")
+
     print(f"Debug: lang = {lang}")
     ext = {'c': '.C', 'cpp': '.cpp', 'coq': '.v'}.get(lang)
     if ext is None:

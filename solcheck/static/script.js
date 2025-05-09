@@ -171,6 +171,8 @@ const uploadFile = (file, section) => {
     if (programName !== "not_selected")
         formData.append("task", programName);
 
+    formData.append("prefix", section);
+
     fetch(`https://solcheck.ru/${section}`, {
         method: "POST",
         body: formData,

@@ -15,9 +15,17 @@ import re
 #   (bool, string) compile success and error message or output string.
 #
 def compile(src_filename, out_filename):
-    compile_cmd = ["clang", "-std=c99", src_filename, "-o", out_filename]
-    result = subprocess.run(compile_cmd, capture_output=True, text=True)
+    # Get file extension
+    root, ext = os.path.splitext(src_filename)
 
+    # Compile code
+    if ext == '.C':
+        compile_cmd = ["clang", "-std=c99", src_filename, "-o", out_filename]
+    elif ext == '.v':
+        compile_cmd = ["coqc", src_filename, "-o", out_filename]
+
+    # Check result
+    result = subprocess.run(compile_cmd, capture_output=True, text=True)
     if result.returncode != 0:
         return False, result.stderr
     
