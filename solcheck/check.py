@@ -22,7 +22,7 @@ def compile(src_filename, out_filename, ext):
     if ext == '.C':
         compile_cmd = ["clang", "-std=c99", src_filename, "-o", out_filename]
     elif ext == '.v':
-        compile_cmd = ["coqc", "-v", src_filename, "-o", out_filename]
+        compile_cmd = ["coqc", src_filename, "-o", out_filename]
 
     # Check result
     result = subprocess.run(compile_cmd, capture_output=True, text=True)
