@@ -10,8 +10,8 @@ window.onload = () => {
     editor.session.setMode(get_section() == 'coq' ? "ace/mode/plain_text" : "ace/mode/c_cpp");
     editor.session.setTabSize(2);
     editor.session.setUseSoftTabs(true);
-    
-    editor.setOption("scrollMargin", [10, 100, 10, 10]);
+
+    editor.renderer.setScrollMargin(5, 5, 0, 0);
     editor.setOptions({
         fontFamily: "Consolas, 'Courier New', monospace",
         fontSize: "14px",
