@@ -84,6 +84,7 @@ def check(lang):
         return jsonify({"error": f"Error: Only {ext} files are allowed"}), 400
 
     # Check 
+    print(f"Debug: ext = {ext}")
 
     # Save file
     file_path = os.path.join(UPLOAD_DIR, file.filename)
