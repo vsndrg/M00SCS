@@ -36,16 +36,21 @@ def compile(src_filename, out_filename, ext):
 # ARGUMENTS:
 #   - file path:
 #       file_path;
+#   - goal regular expression:
+#       regex;
 # RETURNS:
-#   (?) ?.
+#   (bool, string) succes and message.
 #
-def check_coq_goals(file_path, goals_path):
+def check_coq_goals(file_path, regex):
     with open(file_path, 'r') as f:
         file_content = f.read()
     
     process = subprocess.run(["coqtop", "-quiet"], input=file_content, capture_output=True, text=True)
 
-    return process.stdout, process.stderr
+    if re.search(regex, process.stdout):
+        return True, ''
+    else:
+        return False, f"Error: Not all goals are comleted:\n{process.stdout}\n"
 # End of 'check_coq_goals' function
 
 # Run program on input test function.
@@ -130,7 +135,7 @@ def compare(program_output_lines, expected_output_lines, tol):
 # RETURNS:
 #   (bool, string) True if all tests passed, False otherwise, report if test(s) failed.
 #
-def run_tests(exe_filename, tests_dir):
+def run_tests(exe_filename, tests_dir, ext, coq_filename = ''):
     i = 1
     all_passed = True
     report = ""
@@ -176,10 +181,13 @@ def run_tests(exe_filename, tests_dir):
                 all_passed = False
         else:
             print(f"Debug: Regex found: {expexted_ouput}, Program output:\n{program_ouput}")
-            match = re.fullmatch(expexted_ouput, program_ouput)
-            if not match:
-                report += f"Wrong answer format:\n{program_ouput}\n"
-                all_passed = False
+            if ext == '.v':
+                return check_coq_goals(coq_filename, expexted_ouput)
+            else:
+                match = re.fullmatch(expexted_ouput, program_ouput)
+                if not match:
+                    report += f"Wrong answer format:\n{program_ouput}\n"
+                    all_passed = False
         
         i += 1
 

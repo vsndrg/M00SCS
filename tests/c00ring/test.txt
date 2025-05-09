@@ -1,0 +1,4 @@
+####### TEST CASE #######
+@-$%regex@-$%
+---
+forall\s([a-zA-Z_]+)\s\:\s(?:nat),\s\1\s\+\s0\s=\s\1.
