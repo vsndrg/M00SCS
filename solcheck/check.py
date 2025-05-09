@@ -20,6 +20,7 @@ def compile(src_filename, out_filename):
 
     # Compile code
     compile_cmd = ''
+    print(f"Debug: ext = {ext}")
     if ext == '.C':
         compile_cmd = ["clang", "-std=c99", src_filename, "-o", out_filename]
     elif ext == '.v':

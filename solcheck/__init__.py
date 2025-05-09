@@ -63,9 +63,6 @@ def check(lang):
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
     
-    print("Debug: Getting prefix from form")
-    # lang = request.form.get("prefix", "")
-
     print(f"Debug: lang = {lang}")
     ext = {'c': '.C', 'cpp': '.cpp', 'coq': '.v'}.get(lang)
     if ext is None:
