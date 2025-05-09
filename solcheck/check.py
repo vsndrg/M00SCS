@@ -184,6 +184,7 @@ def run_tests(exe_filename, tests_dir, ext, coq_filename = ''):
         else:
             print(f"Debug: Regex found: {expexted_ouput}, Program output:\n{program_ouput}")
             if ext == '.v':
+                print(f"Debug: Function call 'check_coq_goals(\"{coq_filename}\", \"{expexted_ouput}\")'")
                 return check_coq_goals(coq_filename, expexted_ouput)
             else:
                 match = re.fullmatch(expexted_ouput, program_ouput)
