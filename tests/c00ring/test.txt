@@ -10,3 +10,11 @@
 @-$%regex@-$%
 ---
 (?:forall\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s\:\s(?:nat),\s\1\s\*\s\(\2\s\+\s\3\)\s=\s\1\s\*\s\2\s\+\s\1\s\*\s\3\s)|(?:forall\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s\:\s(?:nat),\s\4\s\*\s\5\s\+\s\4\s\*\s\6\s=\s\4\s\*\s\(\5\s\+\s\6\))
+####### TEST CASE #######
+@-$%regex@-$%
+---
+(?:forall\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s\:\s(?:nat),\s\1\s\*\s\2\s=\s\2\s\*\s\1)|(?:forall\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s\:\s(?:nat),\s\4\s\*\s\3\s=\s\3\s\*\s\4)
+####### TEST CASE #######
+@-$%regex@-$%
+---
+(?:forall\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s\:\s(?:nat),\s\1\s\*\s\2\s\*\s\3\s=\s\1\s\*\s\(\2\s\*\s\3\))|(?:forall\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s([a-zA-Z_]+)\s\:\s(?:nat),\s\4\s\*\s\(\5\s\*\s\6\)\s=\s\4\s\*\s\5\s\*\s\6)
