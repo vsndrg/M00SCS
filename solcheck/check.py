@@ -48,7 +48,7 @@ def check_coq_goals(file_path, regex):
     process = subprocess.run(["coqtop", "-quiet"], input=file_content, capture_output=True, text=True)
 
     if re.search(regex, process.stdout):
-        print(f"Debug: Goals list:\n{process.stdout}")
+        # print(f"Debug: Goals list:\n{process.stdout}")
         return True, ''
     else:
         return False, f"Error: Not all goals are comleted.\n"  # return False, f"Error: Not all goals are comleted:\n{process.stdout}\n"
