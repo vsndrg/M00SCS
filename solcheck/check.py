@@ -19,6 +19,7 @@ def compile(src_filename, out_filename):
     root, ext = os.path.splitext(src_filename)
 
     # Compile code
+    compile_cmd = ''
     if ext == '.C':
         compile_cmd = ["clang", "-std=c99", src_filename, "-o", out_filename]
     elif ext == '.v':
