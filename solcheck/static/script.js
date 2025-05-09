@@ -57,6 +57,8 @@ document.getElementById("fileInput").addEventListener("change", (event) => {
     const verificationCodeInput = document.getElementById("verificationCode");
     const copyButton = document.querySelector(".copy-btn");
     const programName = document.getElementById("programSelect").value;
+    const section = window.location.pathname.split('/')[1];
+    let ext;
 
     if (event.target.files.length > 0) {
         const file = event.target.files[0];
@@ -65,8 +67,21 @@ document.getElementById("fileInput").addEventListener("change", (event) => {
             return;
         }
         const fileName = file.name;
-        if (!fileName.match(/\.c$/i)) {
-            alert("Error: Only files with .C extensions can be uploaded");
+
+        switch (section) {
+            case 'c':
+                ext = 'C';
+                break;
+            case 'cpp':
+                ext = 'cpp';
+                break;
+            case 'coq':
+                ext = 'v';
+                break;
+        }
+
+        if (!fileName.match(new RegExp(`\.${ext}$`, 'i'))) {
+            alert(`Error: Only files with .${ext} extensions can be uploaded`);
             event.target.value = "";
             return;
         }
@@ -76,7 +91,7 @@ document.getElementById("fileInput").addEventListener("change", (event) => {
 
         setEditorCode(file);
         setProgramNameAuto(fileName);
-        uploadFile(file);
+        uploadFile(file, section);
     } else {
         fileNameDisplay.textContent = "No file chosen";
         fileLabel.textContent = "Choose File";
@@ -104,19 +119,33 @@ const setEditorCode = (file) => {
 const uploadCode = () => {
     const code = editor.getValue();
     const programName = document.getElementById("programSelect").value;
+    const section = window.location.pathname.split('/')[1];
+    let ext;
 
     if (programName == "not_selected") {
         alert("Choose program!");
         return;
     }
 
+    switch (section) {
+        case 'c':
+            ext = 'C';
+            break;
+        case 'cpp':
+            ext = 'cpp';
+            break;
+        case 'coq':
+            ext = 'v';
+            break;
+    }
+
     const blob = new Blob([code], { type: "plain/text" });
-    const file = new File([blob], programName + ".C", { type: "plain/text" });
+    const file = new File([blob], programName + `.${ext}`, { type: "plain/text" });
 
     uploadFile(file);
 };
 
-const uploadFile = (file) => {
+const uploadFile = (file, section) => {
     const errorBlock = document.getElementById("errorBlock");
     const errorList = document.getElementById("errorList");
     const verificationCode = document.getElementById("verificationCode");
@@ -142,7 +171,7 @@ const uploadFile = (file) => {
     if (programName !== "not_selected")
         formData.append("task", programName);
 
-    fetch("https://solcheck.ru/", {
+    fetch(`https://solcheck.ru/${section}`, {
         method: "POST",
         body: formData,
     })
